@@ -20,17 +20,35 @@ while True:
             for id, landmark in enumerate(landmarks):
                 x = int(landmark.x * video_width)
                 y = int(landmark.y * video_height)
+                #cursor movement
                 if id == 8:
                     cv2.circle(img=video, center=(x, y), radius=10, color=(0, 255, 255))
                     index_x = screen_width / video_width * x
                     index_y = screen_height / video_height * y
                     pyautogui.moveTo(index_x, index_y)
+                #click
                 if id == 4:
                     cv2.circle(img=video, center=(x, y), radius=10, color=(255, 255, 0))
                     thum_x = screen_width / video_width * x
                     thum_y = screen_height / video_height * y
                     if abs(index_y - thum_y)<20:
                         pyautogui.click()
+                        pyautogui.sleep(1)
+                #double click
+                if id == 12:
+                    cv2.circle(img=video, center=(x, y),radius=10, color=(0, 255, 255))
+                    middle_x = screen_width / video_width * x
+                    middle_y = screen_height / video_height * y
+                    if abs(thum_y - middle_y) < 20:
+                        pyautogui.doubleClick()
+                        pyautogui.sleep(1)
+                #right click
+                if id == 16:
+                    cv2.circle(img=video, center=(x, y),radius=10, color=(0, 255, 255))
+                    third_x = screen_width / video_width * x
+                    third_y = screen_height / video_height * y
+                    if abs(thum_y - third_y) < 20:
+                        pyautogui.click(button='right')
                         pyautogui.sleep(1)
     print(hands)
     cv2.imshow('My Mouse', video)
